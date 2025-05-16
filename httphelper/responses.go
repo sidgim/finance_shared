@@ -2,7 +2,7 @@ package httphelper
 
 import (
 	"encoding/json"
-	"github.com/sidgim/example-go-web/pkg/meta"
+	"github.com/sidgim/finance_shared/meta"
 	"net/http"
 )
 
