@@ -4,7 +4,7 @@ go 1.24.3
 
 require (
 	github.com/google/wire v0.6.0
-	github.com/sidgim/example-go-web v0.0.0-20250516004127-9f1a62cd2130
+	github.com/kelseyhightower/envconfig v1.4.0
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gorm v1.26.1
 )

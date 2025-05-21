@@ -13,16 +13,10 @@ func ProvideLogger(name string) *log.Logger {
 	return log.New(os.Stdout, name, log.LstdFlags|log.Lshortfile)
 }
 
-func ProvideDB() (*gorm.DB, error) {
-	host := os.Getenv("DB_HOST")
-	port := os.Getenv("DB_PORT")
-	user := os.Getenv("DB_USER")
-	pass := os.Getenv("DB_PASSWORD")
-	name := os.Getenv("DB_NAME")
-
+func ProvideDB(cfg *Config) (*gorm.DB, error) {
 	dsn := fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, pass, name,
+		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPassword, cfg.DBName,
 	)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -30,7 +24,7 @@ func ProvideDB() (*gorm.DB, error) {
 		log.Fatal("failed to connect to DB:", err)
 		return nil, err
 	}
-	if os.Getenv("DATABASE_DEBUG") == "true" {
+	if cfg.Debug {
 		db = db.Debug()
 	}
 	return db, nil
